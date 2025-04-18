@@ -16,7 +16,7 @@ links = "zstd"
 name = "zstd-sys"
 readme = "Readme.md"
 repository = "https://github.com/gyscos/zstd-rs"
-version = "2.0.9+zstd.1.5.5"
+version = "2.0.15+zstd.1.5.7"
 edition = "2018"
 rust-version = "1.64"
 
@@ -34,6 +34,8 @@ include = [
     "/zstd/lib/**/*.c",
     "/zstd/lib/**/*.h",
     "/zstd/lib/**/*.S",
+    "/zstd/contrib/seekable_format/*.c",
+    "/zstd/contrib/seekable_format/*.h",
 ]
 # exclude = [
 #     "zstd",
@@ -51,19 +53,19 @@ doctest = false  # Documentation is for C code, good luck testing that.
 
 [build-dependencies.bindgen]
 optional = true
-version = "0.69"
+version = "0.71"
 default-features = false
 features = ["runtime", "which-rustfmt"]
 
 [build-dependencies.pkg-config]
-version = "0.3"
+version = "0.3.28"
 
 [build-dependencies.cc]
 version = "1.0.45"
 features = ["parallel"]
 
 [features]
-default = ["legacy", "zdict_builder"]
+default = ["legacy", "zdict_builder", "bindgen"]
 
 debug = [] # Enable zstd debug logs
 experimental = [] # Expose experimental ZSTD API
@@ -76,8 +78,12 @@ thin = [] # Optimize binary by size
 no_asm = [] # Disable ASM files (only on amd64 for decompression)
 zdict_builder = [] # Enable dictionary building (dictionary _using_ is always supported).
 no_wasm_shim = [] # Disable wasm shims (in case your wasm toolchain includes a C stdlib).
+seekable = [] # Enable support of the seekable format
 
 # These two are for cross-language LTO.
 # Will only work if `clang` is used to build the C library.
 fat-lto = [] # Enable fat-lto, will override thin-lto if specified
 thin-lto = [] # Enable thin-lto, will fallback to fat-lto if not supported
+
+[lints.rust]
+non_upper_case_globals = "allow"

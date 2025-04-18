@@ -11,7 +11,7 @@ categories = ["compression", "api-bindings"]
 license = "MIT"
 name = "zstd-reusectx"
 repository = "https://github.com/lordofpipes/zstd-reusectx"
-version = "0.15.1"
+version = "0.16.0"
 exclude = ["assets/*.zst", "/.github"]
 readme = "Readme.md"
 edition = "2018"
@@ -21,12 +21,10 @@ rust-version = "1.64"
 features = ["experimental", "zstdmt", "zdict_builder", "doc-cfg"]
 
 [dependencies]
-zstd-safe = { path = "zstd-safe", version = "7.0.0", default-features = false, features = [
-  "std",
-] }
+zstd-safe = { path = "zstd-safe", version = "7.1.0", default-features = false, features = ["std"] }
 
 [dev-dependencies]
-clap = { version = "4.0", features = ["derive"] }
+clap = {version = "4.0", features=["derive"]}
 humansize = "2.0"
 partial-io = "0.5"
 walkdir = "2.2"
